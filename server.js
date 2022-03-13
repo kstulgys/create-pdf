@@ -59,6 +59,7 @@ async function generatePDF({ html = "", margin }) {
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "5mb" }));
 
 app.get("/health", (req, res) => {
   res.json({ status: "OK" });
