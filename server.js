@@ -58,7 +58,11 @@ async function generatePDF({ html = "", margin }) {
 
 app.use(cors());
 
-app.post("/create-pdf", cors(corsOptionsDelegate), async (req, res) => {
+app.get("/health", (req, res) => {
+  res.json({ status: "OK" });
+});
+
+app.post("/create-pdf", async (req, res) => {
   const { styleTags = "", innerHTML = "", margin = {} } = req.body;
   console.log({ innerHTML });
   const html = `<html>
