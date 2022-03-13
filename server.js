@@ -63,7 +63,7 @@ app.get("/health", (req, res) => {
 });
 
 app.post("/create-pdf", async (req, res) => {
-  const { styleTags = "", innerHTML = "", margin = {} } = req.body;
+  const { styleTags = "", innerHTML = "", margin = {} } = JSON.parse(req.body);
   console.log({ innerHTML });
   const html = `<html>
     <head>
