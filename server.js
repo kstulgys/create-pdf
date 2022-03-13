@@ -20,6 +20,7 @@ async function generatePDF({ html = "", margin }) {
   });
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: "networkidle2" });
+  // await page.goto("data:text/html," + html, { waitUntil: "" });
   await page.emulateMediaType("print");
   const { bottom = "1cm", top = "1cm", left = "3cm", right = "1.5cm" } = margin;
 
@@ -45,13 +46,18 @@ app.get("/health", (req, res) => {
 app.post("/create-pdf", async (req, res) => {
   const { styleTags = "", innerHTML = "", margin = {} } = req.body;
 
-  const html = `<html>
+  const html = `
+  <!DOCTYPE html>
+  <html>
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+        body {
+          font-family: 'Ubuntu Mono', monospace;
+        };
         ${styleTags}
-        @import url(https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap);
       </style>
     </head>
     <body>
