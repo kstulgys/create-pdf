@@ -1,5 +1,6 @@
 const express = require("express");
 const chromium = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -8,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 async function generatePDF({ html = "", margin }) {
-  const browser = await chromium.puppeteer.launch({
+  const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
