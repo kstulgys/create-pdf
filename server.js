@@ -1,6 +1,7 @@
 const express = require("express");
 const chromium = require("chrome-aws-lambda");
-var cors = require("cors");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -57,13 +58,14 @@ async function generatePDF({ html = "", margin }) {
 // });
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/health", (req, res) => {
   res.json({ status: "OK" });
 });
 
 app.post("/create-pdf", async (req, res) => {
-  const { styleTags = "", innerHTML = "", margin = {} } = JSON.parse(req.body);
+  const { styleTags = "", innerHTML = "", margin = {} } = req.body;
   console.log({ innerHTML });
   const html = `<html>
     <head>
