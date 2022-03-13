@@ -57,11 +57,8 @@ app.post("/create-pdf", async (req, res) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
         ${styleTags}
+        @import url(https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap)
       </style>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
     </head>
     <body>
       ${innerHTML}
