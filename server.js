@@ -19,8 +19,13 @@ async function generatePDF({ html = "", margin }) {
     headless: true,
   });
   const page = await browser.newPage();
-
-  await page.setContent(html, { waitUntil: "networkidle2" });
+  const loaded = page.waitForNavigation({
+    waitUntil: "networkidle0",
+  });
+  await page.setContent(html, {
+    waitUntil: ["load", "domcontentloaded", "networkidle0"],
+  });
+  await loaded;
   await page.emulateMediaType("print");
   const { bottom = "1cm", top = "1cm", left = "3cm", right = "1.5cm" } = margin;
 
@@ -53,6 +58,10 @@ app.post("/create-pdf", async (req, res) => {
       <style>
         ${styleTags}
       </style>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
     </head>
     <body>
       ${innerHTML}
