@@ -20,7 +20,7 @@ async function generatePDF({ html = "", margin }) {
   });
   const page = await browser.newPage();
 
-  await page.setContent(html);
+  await page.setContent(html, { waitUntil: "domcontentloaded" });
   await page.emulateMediaType("print");
   const { bottom = "1cm", top = "1cm", left = "3cm", right = "1.5cm" } = margin;
 
