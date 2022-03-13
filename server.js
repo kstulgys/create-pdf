@@ -12,7 +12,7 @@ async function generatePDF({ html = "", margin }) {
   const browser = await puppeteer.launch({
     // args: chromium.args,
     // args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    args: ["--no-sandbox"],
+    args: ["--no-sandbox", "--font-render-hinting=none"],
     // defaultViewport: chromium.defaultViewport,
     // executablePath: await chromium.executablePath,
     ignoreHTTPSErrors: true,
