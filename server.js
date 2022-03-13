@@ -18,11 +18,12 @@ async function generatePDF({ html = "", margin }) {
     headless: true,
   });
   const page = await browser.newPage();
-  // await page.setContent(html, { waitUntil: "networkidle2" });
-  await page.goto("data:text/html," + html, { waitUntil: "networkidle2" });
+  await page.setContent(html, { waitUntil: "networkidle2" });
+  // await page.goto("data:text/html," + html, { waitUntil: "networkidle2" });
   await page.emulateMediaType("print");
   const { bottom = "1cm", top = "1cm", left = "3cm", right = "1.5cm" } = margin;
 
+  await page.screenshot();
   const pdfBuffer = await page.pdf({
     format: "a4",
     printBackground: true,
